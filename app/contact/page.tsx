@@ -27,6 +27,7 @@ type ContactForm = z.infer<typeof contactSchema>;
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [submitError, setSubmitError] = React.useState('');
 
   const {
     register,
@@ -38,10 +39,23 @@ export default function ContactPage() {
   });
 
   const onSubmit = async (data: ContactForm) => {
-    console.log('Contact Form Data:', data);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitted(true);
-    reset();
+    try {
+      setSubmitError('');
+      const response = await fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message. Please try again.');
+      }
+
+      setIsSubmitted(true);
+      reset();
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+    }
   };
 
   return (
@@ -145,6 +159,12 @@ export default function ContactPage() {
                       />
                       {errors.message && <p className="text-red-500 text-xs">{errors.message.message}</p>}
                     </div>
+
+                    {submitError && (
+                      <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                        <p className="text-sm text-red-700 font-medium">{submitError}</p>
+                      </div>
+                    )}
 
                     <button
                       disabled={isSubmitting}
