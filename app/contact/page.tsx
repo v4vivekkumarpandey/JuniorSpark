@@ -10,7 +10,7 @@ import {
   MapPin,
   MessageSquare,
   Send,
-  CheckCircle2
+  CheckCircle2,
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -75,8 +75,9 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-slate-900">Contact Information</h2>
               <div className="space-y-6">
                 {[
-                  { icon: <Mail className="text-primary" />, title: 'Email Us', value: 'info@juniorspark.in', desc: 'We usually respond within 24 hours.' },
-                  { icon: <MapPin className="text-accent" />, title: 'Our Office', value: 'New Delhi, Delhi', desc: 'India\'s Favorite e-learning Platform.' },
+                  { icon: <Mail className="text-primary" />, title: 'Email Us', value: 'info@juniorspark.in', desc: 'We usually respond within 24 hours.', href: 'mailto:info@juniorspark.in' },
+                  { icon: <Phone className="text-green-500" />, title: 'Call / WhatsApp', value: '+91 70112 54904', desc: 'Mon–Sat, 9 AM – 8 PM IST', href: 'tel:+917011254904' },
+                  { icon: <MapPin className="text-accent" />, title: 'Our Office', value: 'New Delhi, Delhi', desc: 'India\'s Favourite e-learning Platform.', href: null },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-6 p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
                     <div className="size-14 shrink-0 rounded-xl bg-slate-50 flex items-center justify-center">
@@ -84,7 +85,11 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">{item.title}</p>
-                      <p className="text-lg font-bold text-slate-900">{item.value}</p>
+                      {item.href ? (
+                        <a href={item.href} className="text-lg font-bold text-slate-900 hover:text-primary transition-colors">{item.value}</a>
+                      ) : (
+                        <p className="text-lg font-bold text-slate-900">{item.value}</p>
+                      )}
                       <p className="text-sm text-slate-500">{item.desc}</p>
                     </div>
                   </div>
