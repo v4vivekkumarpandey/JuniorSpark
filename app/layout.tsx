@@ -48,10 +48,10 @@ export const metadata: Metadata = {
     description: 'Live online Spoken English classes for kids aged 4–15. Small batches of max 6 kids, expert teachers, and real results. Book a FREE demo class today!',
     images: [
       {
-        url: '/heroimage.jpeg',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'JuniorSpark — Online Spoken English Classes for Kids',
+        alt: 'JuniorSpark — Online English Classes for Kids',
       },
     ],
   },
