@@ -11,9 +11,9 @@ export default function Footer() {
             <Image
               src="/logo.jpeg"
               alt="JuniorSpark Logo"
-              width={200}
-              height={100}
-              className="h-24 w-auto object-contain mix-blend-multiply"
+              width={180}
+              height={180}
+              className="w-44 h-auto object-contain mix-blend-multiply -ml-3"
             />
           </div>
           <p className="text-slate-500 font-medium text-sm leading-relaxed">
