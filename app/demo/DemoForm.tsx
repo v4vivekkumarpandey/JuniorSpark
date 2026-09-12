@@ -128,8 +128,8 @@ export default function DemoForm() {
   const validate = (s = step) => {
     const e: Partial<Record<keyof FormData, string>> = {};
     if (s === 0 && !form.ageGroup) e.ageGroup = 'Please select a class';
-    if (s === 1 && !/^[6-9]\d{9}$/.test(form.whatsapp))
-      e.whatsapp = 'Enter a valid 10-digit WhatsApp number';
+    if (s === 1 && !/^\+?\d{7,15}$/.test(form.whatsapp.replace(/[\s\-().]/g, '')))
+      e.whatsapp = 'Enter a valid WhatsApp number with country code (e.g. +1 234 567 8901)';
     if (s === 2) {
       if (!form.date) e.date = 'Please select a date';
       if (!form.time) e.time = 'Please select a time';
@@ -391,15 +391,11 @@ export default function DemoForm() {
                       </h3>
 
                       <div className="flex gap-2 mb-3">
-                        <div className="flex items-center gap-1.5 px-3 py-4 rounded-xl border-2 border-slate-200 bg-white text-sm font-semibold text-slate-700 shrink-0 select-none">
-                          🇮🇳&nbsp;+91 <ChevronDown size={13} className="text-slate-400" />
-                        </div>
                         <input
                           value={form.whatsapp}
-                          onChange={e => set('whatsapp', e.target.value.replace(/\D/g, '').slice(0, 10))}
-                          placeholder="Enter Phone Number"
+                          onChange={e => set('whatsapp', e.target.value)}
+                          placeholder="+91 98765 43210 or +1 234 567 8901"
                           type="tel"
-                          inputMode="numeric"
                           autoFocus
                           className={`flex-1 px-4 py-4 rounded-xl border-2 outline-none focus:border-primary transition-colors text-base ${
                             fieldErrors.whatsapp ? 'border-red-400 bg-red-50' : 'border-slate-200'

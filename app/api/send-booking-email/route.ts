@@ -26,8 +26,10 @@ function validateBooking(body: Record<string, unknown>) {
   if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     errors.push('Invalid email address');
 
-  if (!whatsapp || typeof whatsapp !== 'string' || !/^[6-9]\d{9}$/.test(whatsapp))
-    errors.push('Invalid WhatsApp number — must be 10 digits starting with 6-9');
+  // E.164 international: optional +, 7–15 digits
+  const cleanPhone = typeof whatsapp === 'string' ? whatsapp.replace(/[\s\-().]/g, '') : '';
+  if (!cleanPhone || !/^\+?\d{7,15}$/.test(cleanPhone))
+    errors.push('Invalid WhatsApp number — must be 7 to 15 digits with optional country code');
 
   if (!ageGroup || !ALLOWED_AGE_GROUPS.includes(ageGroup as string))
     errors.push('Invalid age group');
