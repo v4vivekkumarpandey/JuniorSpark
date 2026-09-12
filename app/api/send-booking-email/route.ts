@@ -1,10 +1,69 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+const ALLOWED_AGE_GROUPS = ['5-7', '8-11', '12-15'];
+const ALLOWED_TIMES = ['04:00 PM', '05:00 PM', '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM'];
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function validateBooking(body: Record<string, unknown>) {
+  const errors: string[] = [];
+  const { ageGroup, date, time, parentName, email, childName, whatsapp } = body;
+
+  if (!childName || typeof childName !== 'string' || childName.trim().length < 2)
+    errors.push('Child name must be at least 2 characters');
+
+  if (!parentName || typeof parentName !== 'string' || parentName.trim().length < 2)
+    errors.push('Parent name must be at least 2 characters');
+
+  if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    errors.push('Invalid email address');
+
+  if (!whatsapp || typeof whatsapp !== 'string' || !/^[6-9]\d{9}$/.test(whatsapp))
+    errors.push('Invalid WhatsApp number — must be 10 digits starting with 6-9');
+
+  if (!ageGroup || !ALLOWED_AGE_GROUPS.includes(ageGroup as string))
+    errors.push('Invalid age group');
+
+  if (!date || typeof date !== 'string' || isNaN(Date.parse(date)))
+    errors.push('Invalid date');
+
+  if (!time || !ALLOWED_TIMES.includes(time as string))
+    errors.push('Invalid time slot');
+
+  return errors;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { ageGroup, date, time, parentName, email, childName, whatsapp } = body;
+
+    const errors = validateBooking(body);
+    if (errors.length > 0) {
+      return NextResponse.json(
+        { success: false, error: errors[0] },
+        { status: 400 }
+      );
+    }
+
+    const { ageGroup, date, time, parentName, email, childName, whatsapp } = body as Record<string, string>;
+
+    // Sanitize all user inputs before using in HTML email
+    const safe = {
+      childName:  escapeHtml(childName.trim()),
+      parentName: escapeHtml(parentName.trim()),
+      email:      escapeHtml(email.trim()),
+      whatsapp:   escapeHtml(whatsapp.trim()),
+      ageGroup:   escapeHtml(ageGroup),
+      time:       escapeHtml(time),
+    };
 
     // Format the date for better readability
     const formattedDate = new Date(date).toLocaleDateString('en-IN', {
@@ -49,37 +108,37 @@ export async function POST(request: Request) {
               
               <div class="info-row">
                 <div class="info-label">Child's Name:</div>
-                <div class="info-value">${childName}</div>
+                <div class="info-value">${safe.childName}</div>
               </div>
-              
+
               <div class="info-row">
                 <div class="info-label">Age Group:</div>
-                <div class="info-value">${ageGroup} years</div>
+                <div class="info-value">${safe.ageGroup} years</div>
               </div>
-              
+
               <div class="info-row">
                 <div class="info-label">Scheduled Date:</div>
                 <div class="info-value">${formattedDate}</div>
               </div>
-              
+
               <div class="info-row">
                 <div class="info-label">Scheduled Time:</div>
-                <div class="info-value">${time} IST</div>
+                <div class="info-value">${safe.time} IST</div>
               </div>
-              
+
               <div class="info-row">
                 <div class="info-label">Parent's Name:</div>
-                <div class="info-value">${parentName}</div>
+                <div class="info-value">${safe.parentName}</div>
               </div>
-              
+
               <div class="info-row">
                 <div class="info-label">Email:</div>
-                <div class="info-value">${email}</div>
+                <div class="info-value">${safe.email}</div>
               </div>
-              
+
               <div class="info-row">
                 <div class="info-label">WhatsApp Number:</div>
-                <div class="info-value">+91 ${whatsapp}</div>
+                <div class="info-value">+91 ${safe.whatsapp}</div>
               </div>
               
               <div class="footer">
@@ -115,22 +174,22 @@ export async function POST(request: Request) {
               <p style="margin: 10px 0 0 0; opacity: 0.9;">Your child's demo class is all set</p>
             </div>
             <div class="content">
-              <p>Dear ${parentName},</p>
+              <p>Dear ${safe.parentName},</p>
 
-              <p>Thank you for booking a free demo class for <strong>${childName}</strong>! We're excited to welcome your child to our interactive English learning experience.</p>
+              <p>Thank you for booking a free demo class for <strong>${safe.childName}</strong>! We're excited to welcome your child to our interactive English learning experience.</p>
 
               <div class="highlight-box">
                 <h3 style="margin-top: 0; color: #2b7cee;">📅 Class Details</h3>
                 <p style="margin: 5px 0;"><strong>Date:</strong> ${formattedDate}</p>
-                <p style="margin: 5px 0;"><strong>Time:</strong> ${time} IST</p>
-                <p style="margin: 5px 0;"><strong>Age Group:</strong> ${ageGroup} years</p>
+                <p style="margin: 5px 0;"><strong>Time:</strong> ${safe.time} IST</p>
+                <p style="margin: 5px 0;"><strong>Age Group:</strong> ${safe.ageGroup} years</p>
                 <p style="margin: 5px 0;"><strong>Duration:</strong> 45 minutes</p>
               </div>
 
               <div class="info-box">
                 <h4 style="margin-top: 0;">📱 What's Next?</h4>
                 <ul style="margin: 10px 0;">
-                  <li>You'll receive the class link on WhatsApp (+91 ${whatsapp}) 30 minutes before the session</li>
+                  <li>You'll receive the class link on WhatsApp (+91 ${safe.whatsapp}) 30 minutes before the session</li>
                   <li>Make sure you have a stable internet connection</li>
                   <li>Join from a laptop/tablet for the best experience</li>
                   <li>Have a pen and paper ready for fun activities!</li>
@@ -149,7 +208,7 @@ export async function POST(request: Request) {
 
               <p style="margin-top: 25px;">If you need to reschedule or have any questions, contact us on WhatsApp at <a href="https://wa.me/917011254904">+91 70112 54904</a> or email us at <a href="mailto:info@juniorspark.in">info@juniorspark.in</a>.</p>
 
-              <p>We look forward to seeing ${childName} in class!</p>
+              <p>We look forward to seeing ${safe.childName} in class!</p>
 
               <div class="footer">
                 <p><strong>JuniorSpark — Online English Classes for Kids</strong></p>
@@ -167,13 +226,13 @@ export async function POST(request: Request) {
       transporter.sendMail({
         from: `"Demo Bookings" <${process.env.GMAIL_USER}>`,
         to: process.env.ADMIN_EMAIL || 'juniorspark2026@gmail.com',
-        subject: `Enquiry: New Demo Class Booking - ${childName}`,
+        subject: `Enquiry: New Demo Class Booking - ${safe.childName}`,
         html: adminEmailHtml,
       }),
       transporter.sendMail({
         from: `"JuniorSpark" <${process.env.GMAIL_USER}>`,
-        to: email,
-        subject: `✅ Demo Class Confirmed for ${childName} — ${formattedDate} at ${time} IST`,
+        to: safe.email,
+        subject: `✅ Demo Class Confirmed for ${safe.childName} — ${formattedDate} at ${safe.time} IST`,
         html: parentEmailHtml,
       }),
     ]);
@@ -186,13 +245,13 @@ export async function POST(request: Request) {
       const message = [
         `🎉 *New Demo Booking!*`,
         ``,
-        `👦 *Child:* ${childName}`,
-        `👨‍👩‍👧 *Parent:* ${parentName}`,
-        `📚 *Class:* ${ageGroup}`,
+        `👦 *Child:* ${safe.childName}`,
+        `👨‍👩‍👧 *Parent:* ${safe.parentName}`,
+        `📚 *Class:* ${safe.ageGroup}`,
         `📅 *Date:* ${formattedDate}`,
-        `⏰ *Time:* ${time} IST`,
-        `📞 *WhatsApp:* +91 ${whatsapp}`,
-        `📧 *Email:* ${email}`,
+        `⏰ *Time:* ${safe.time} IST`,
+        `📞 *WhatsApp:* +91 ${safe.whatsapp}`,
+        `📧 *Email:* ${safe.email}`,
         ``,
         `Please send the class link on WhatsApp.`,
       ].join('\n');
