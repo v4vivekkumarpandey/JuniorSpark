@@ -305,13 +305,13 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/demo"
-                  className="flex flex-1 md:flex-none min-w-[240px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:bg-primary/90 transition-all"
+                  className="flex w-full sm:w-auto sm:min-w-[220px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:bg-primary/90 transition-all"
                 >
                   Book Demo Class
                 </Link>
                 <Link
                   href="#curriculum"
-                  className="flex flex-1 md:flex-none cursor-center items-center justify-center rounded-xl h-14 px-8 bg-white border border-slate-200 text-slate-700 text-lg font-bold hover:bg-slate-50 transition-all"
+                  className="flex w-full sm:w-auto cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-white border-2 border-slate-300 text-slate-700 text-lg font-bold hover:bg-slate-50 hover:border-primary hover:text-primary transition-all"
                 >
                   View Syllabus
                 </Link>
