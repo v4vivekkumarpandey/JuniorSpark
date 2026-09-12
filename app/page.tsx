@@ -201,10 +201,18 @@ export default function HomePage() {
   ];
 
   const faqs = [
-    { q: 'How do I book a free demo?', a: 'Simply click on the "Book Free Demo" button, select a convenient time slot, and provide your basic details. No payment is required for the demo.' },
-    { q: 'What is the age group for these classes?', a: 'We have specialized curriculums for children aged 5 to 15 years, divided into Beginner, Intermediate, and Advanced levels.' },
-    { q: 'What is the batch size?', a: 'We maintain a strict 1:4 teacher-to-student ratio to ensure every child gets individual attention and ample speaking time.' },
-    { q: 'Do you provide certificates?', a: 'Yes, every student receives a certificate of completion after successfully finishing a level in our curriculum.' }
+    { q: 'How do I book a free demo class?', a: 'Simply click the "Book Free Demo" button, select a convenient date and time slot, and fill in your child\'s details. No payment or credit card is required. You will receive a WhatsApp confirmation with the class link.' },
+    { q: 'What is the age group for these classes?', a: 'We have specialised curriculums for children aged 5 to 15 years, divided into three levels — Beginner (Ages 5–7), Intermediate (Ages 8–11), and Advanced (Ages 12–15).' },
+    { q: 'How long is each class?', a: 'Each live session is 45 minutes long. The free demo class is 30 minutes so your child can experience the teaching style without a long commitment.' },
+    { q: 'What platform do you use for classes?', a: 'All classes are conducted live on Google Meet. We will send the meeting link to your WhatsApp number 30 minutes before the class begins. A laptop or tablet gives the best experience.' },
+    { q: 'What is the batch size?', a: 'We maintain a strict maximum of 4–5 students per batch. This ensures every child gets individual attention, sufficient speaking time, and personalised feedback from the teacher.' },
+    { q: 'What are the fees for the classes?', a: 'We offer flexible quarterly and monthly plans starting at affordable rates. The free demo class gives you a complete picture of the teaching quality before you decide. Contact us on WhatsApp after the demo for the latest pricing.' },
+    { q: 'Can I reschedule or cancel a class?', a: 'Yes. You can reschedule a class by contacting us on WhatsApp at least 4 hours before the scheduled time. We understand that schedules can change, and we always try to accommodate rescheduling requests.' },
+    { q: 'What is your refund policy?', a: 'We offer a 100% no-questions-asked refund within 2 days of payment if you are not satisfied with the progress. Enrollments at a discount of 20% or more are not eligible for a refund.' },
+    { q: 'Who are the teachers?', a: 'All our teachers are certified English language educators with experience teaching children. Each teacher undergoes a rigorous selection and training process focused on making learning fun, interactive, and confidence-building for kids.' },
+    { q: 'What topics are covered in the curriculum?', a: 'Our curriculum covers phonics, storytelling, creative writing, grammar, pronunciation, public speaking, and debate — tailored to each age group. The focus is always on building fluency and confidence rather than rote learning.' },
+    { q: 'Do you provide certificates?', a: 'Yes, every student receives a certificate of completion after successfully finishing a level in our curriculum. The certificate can be used to showcase English proficiency in school applications and activities.' },
+    { q: 'Is there a trial period before I commit to a full plan?', a: 'Yes — the free demo class is your trial. It is a fully live, interactive session with a real teacher and other students. After the demo you can decide whether to enrol with no pressure from our side.' },
   ];
 
   const jsonLd = {
