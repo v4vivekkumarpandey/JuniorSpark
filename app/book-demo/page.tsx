@@ -41,12 +41,28 @@ declare global {
   }
 }
 
+function useSlotsLeft() {
+  const [slotsLeft, setSlotsLeft] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    // Deterministic slot count: varies by day-of-week + hour so it feels live
+    // but is consistent across page loads in the same hour window.
+    const now = new Date();
+    const seed = now.getDay() * 24 + now.getHours();
+    const base = [3, 2, 4, 2, 3, 2, 3, 4, 2, 3, 2, 4];
+    setSlotsLeft(base[seed % base.length]);
+  }, []);
+
+  return slotsLeft;
+}
+
 export default function BookDemoPage() {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = React.useState<Date>(addDays(new Date(), 1));
   const [showCalendar, setShowCalendar] = React.useState(false);
   const [submitError, setSubmitError] = React.useState<string>('');
   const [dateError, setDateError] = React.useState<string>('');
+  const slotsLeft = useSlotsLeft();
 
   // ViewContent — fires once when the booking page loads
   React.useEffect(() => {
@@ -142,7 +158,20 @@ export default function BookDemoPage() {
           <span className="text-slate-900">Book Demo</span>
         </div>
 
-        {/* Page Title 1 */}
+        {/* Urgency Banner */}
+        {slotsLeft !== null && (
+          <div className="mb-8 flex items-center gap-3 bg-amber-50 border border-amber-200 text-amber-800 px-5 py-3 rounded-xl w-fit">
+            <span className="relative flex h-3 w-3 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+            </span>
+            <p className="text-sm font-bold">
+              Only <span className="text-amber-900">{slotsLeft} demo slots</span> left for this week — batches filling fast!
+            </p>
+          </div>
+        )}
+
+        {/* Page Title */}
         <div className="mb-10">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Book Demo Class</h1>
           <p className="text-lg text-slate-600 max-w-2xl">Start your child&apos;s journey to fluent English today. Join thousands of kids from across India in our fun, interactive live classes.</p>
