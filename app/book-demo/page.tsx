@@ -29,6 +29,7 @@ const bookingSchema = z.object({
   email: z.string().email("Invalid email address"),
   childName: z.string().min(2, "Child's name is required"),
   whatsapp: z.string().regex(/^[6-9]\d{9}$/, "Please enter a valid 10-digit WhatsApp number"),
+  whatsappConsent: z.literal(true, "Please provide consent to receive WhatsApp messages"),
 });
 
 type BookingForm = z.infer<typeof bookingSchema>;
@@ -347,10 +348,27 @@ export default function BookDemoPage() {
                   </div>
                 </div>
 
+                {/* WhatsApp Consent — TRAI DND compliance */}
+                <div className="mt-8">
+                  <label className="flex items-start gap-3 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      {...register('whatsappConsent')}
+                      className="mt-1 w-4 h-4 rounded border-slate-300 text-primary accent-primary shrink-0 cursor-pointer"
+                    />
+                    <span className="text-sm text-slate-600 leading-relaxed">
+                      I agree to receive WhatsApp messages from JuniorSpark regarding my demo class booking, class updates, and related educational content. I understand I can opt out at any time by messaging <strong>STOP</strong> to our WhatsApp number.
+                    </span>
+                  </label>
+                  {errors.whatsappConsent && (
+                    <p className="text-red-500 text-xs mt-2 ml-7">{errors.whatsappConsent.message}</p>
+                  )}
+                </div>
+
                 <button
                   disabled={isSubmitting}
                   type="submit"
-                  className="w-full mt-10 bg-primary text-white text-lg font-extrabold py-5 rounded-xl hover:scale-[1.01] active:scale-[0.99] transition-all shadow-xl shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full mt-6 bg-primary text-white text-lg font-extrabold py-5 rounded-xl hover:scale-[1.01] active:scale-[0.99] transition-all shadow-xl shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Confirming...' : 'Confirm Booking & Get Link'}
                 </button>
