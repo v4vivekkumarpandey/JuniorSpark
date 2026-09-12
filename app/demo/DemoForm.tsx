@@ -186,7 +186,14 @@ export default function DemoForm() {
         currency: 'INR',
         value: 0,
       });
-      router.push('/thank-you');
+      const params = new URLSearchParams({
+        name: form.childName || '',
+        parent: form.parentName || '',
+        date: form.date || '',
+        time: form.time || '',
+        age: form.ageGroup || '',
+      });
+      router.push(`/thank-you?${params.toString()}`);
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
       setSubmitting(false);

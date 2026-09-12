@@ -63,12 +63,28 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -20 }}
               className="absolute top-full left-0 w-full bg-white border-b border-slate-200 p-6 flex flex-col gap-4 md:hidden shadow-xl"
             >
+              {/* Logo + close row */}
+              <div className="flex items-center justify-between mb-2">
+                <Link href="/" onClick={() => setIsOpen(false)}>
+                  <Image
+                    src="/logo.png"
+                    alt="JuniorSpark Logo"
+                    width={48}
+                    height={48}
+                    className="h-12 w-auto object-contain"
+                  />
+                </Link>
+                <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-slate-700 transition-colors">
+                  <X size={28} />
+                </button>
+              </div>
+
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-slate-600 text-lg font-semibold hover:text-primary"
+                  className="text-slate-600 text-lg font-semibold hover:text-primary border-b border-slate-100 pb-3"
                 >
                   {link.name}
                 </Link>
@@ -76,7 +92,7 @@ export default function Navbar() {
               <Link
                 href="/demo"
                 onClick={() => setIsOpen(false)}
-                className="w-full bg-primary text-white text-center py-4 rounded-xl font-bold"
+                className="w-full bg-primary text-white text-center py-4 rounded-xl font-bold mt-2"
               >
                 Book Free Demo
               </Link>
