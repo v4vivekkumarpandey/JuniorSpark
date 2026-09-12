@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   alternates: {
-    canonical: '/',
+    canonical: 'https://www.juniorspark.in',
   },
   openGraph: {
     type: 'website',
