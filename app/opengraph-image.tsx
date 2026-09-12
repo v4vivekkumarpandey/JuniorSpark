@@ -80,7 +80,7 @@ export default async function Image() {
               { value: '4,000+', label: 'Happy Parents' },
               { value: '100+',   label: 'Cities' },
               { value: '1:4',    label: 'Batch Ratio' },
-              { value: '4.9★',   label: 'Rating' },
+              { value: '4.9/5',  label: 'Rating' },
             ].map((stat) => (
               <div key={stat.label} style={{
                 display: 'flex', flexDirection: 'column',
