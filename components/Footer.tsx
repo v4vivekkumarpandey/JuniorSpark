@@ -76,7 +76,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-[1024px] mx-auto pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <p>© Himantra Services</p>
+        <p>© {new Date().getFullYear()} JuniorSpark. All rights reserved.</p>
         <div className="flex gap-8">
           <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
           <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
