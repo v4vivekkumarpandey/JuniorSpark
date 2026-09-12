@@ -9,11 +9,11 @@ export default function Footer() {
         <div className="flex flex-col gap-6">
           <div>
             <Image
-              src="/logo.jpeg"
+              src="/logo.png"
               alt="JuniorSpark Logo"
               width={180}
               height={180}
-              className="w-44 h-auto object-contain mix-blend-multiply -ml-3"
+              className="w-40 h-auto object-contain"
             />
           </div>
           <p className="text-slate-500 font-medium text-sm leading-relaxed">

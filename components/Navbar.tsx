@@ -22,11 +22,11 @@ export default function Navbar() {
       <div className="max-w-[1024px] mx-auto flex items-center justify-between w-full">
         <Link href="/" className="flex items-center group">
           <Image
-            src="/logo.jpeg"
+            src="/logo.png"
             alt="JuniorSpark Logo"
             width={200}
             height={200}
-            className="w-48 h-auto object-contain mix-blend-multiply -my-6"
+            className="w-40 h-auto object-contain -my-4"
             priority
           />
         </Link>
