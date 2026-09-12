@@ -92,16 +92,16 @@ export async function POST(request: Request) {
     `;
 
     // Parent Email HTML Template
-    /**const parentEmailHtml = `
+    const parentEmailHtml = `
       <!DOCTYPE html>
       <html>
         <head>
           <style>
             body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
             .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 30px; text-align: center; border-radius: 10px 10px 0 0; }
+            .header { background: linear-gradient(135deg, #2b7cee 0%, #1a5cbf 100%); color: white; padding: 40px 30px; text-align: center; border-radius: 10px 10px 0 0; }
             .content { background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 10px 10px; }
-            .highlight-box { background: #f0f4ff; border-left: 4px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 5px; }
+            .highlight-box { background: #eff6ff; border-left: 4px solid #2b7cee; padding: 20px; margin: 20px 0; border-radius: 5px; }
             .info-box { background: #f9fafb; padding: 15px; border-radius: 8px; margin: 15px 0; }
             .footer { margin-top: 30px; padding-top: 20px; border-top: 2px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px; }
             ul { padding-left: 20px; }
@@ -116,17 +116,17 @@ export async function POST(request: Request) {
             </div>
             <div class="content">
               <p>Dear ${parentName},</p>
-              
+
               <p>Thank you for booking a free demo class for <strong>${childName}</strong>! We're excited to welcome your child to our interactive English learning experience.</p>
-              
+
               <div class="highlight-box">
-                <h3 style="margin-top: 0; color: #667eea;">📅 Class Details</h3>
+                <h3 style="margin-top: 0; color: #2b7cee;">📅 Class Details</h3>
                 <p style="margin: 5px 0;"><strong>Date:</strong> ${formattedDate}</p>
                 <p style="margin: 5px 0;"><strong>Time:</strong> ${time} IST</p>
                 <p style="margin: 5px 0;"><strong>Age Group:</strong> ${ageGroup} years</p>
                 <p style="margin: 5px 0;"><strong>Duration:</strong> 45 minutes</p>
               </div>
-              
+
               <div class="info-box">
                 <h4 style="margin-top: 0;">📱 What's Next?</h4>
                 <ul style="margin: 10px 0;">
@@ -136,7 +136,7 @@ export async function POST(request: Request) {
                   <li>Have a pen and paper ready for fun activities!</li>
                 </ul>
               </div>
-              
+
               <div class="info-box">
                 <h4 style="margin-top: 0;">🎯 What to Expect</h4>
                 <ul style="margin: 10px 0;">
@@ -146,13 +146,13 @@ export async function POST(request: Request) {
                   <li><strong>Low Pressure:</strong> Focus on building confidence, not correcting errors</li>
                 </ul>
               </div>
-              
-              <p style="margin-top: 25px;">If you need to reschedule or have any questions, please reply to this email or contact us on WhatsApp.</p>
-              
+
+              <p style="margin-top: 25px;">If you need to reschedule or have any questions, contact us on WhatsApp at <a href="https://wa.me/917011254904">+91 70112 54904</a> or email us at <a href="mailto:info@juniorspark.in">info@juniorspark.in</a>.</p>
+
               <p>We look forward to seeing ${childName} in class!</p>
-              
+
               <div class="footer">
-                <p><strong>English Classes for Kids</strong></p>
+                <p><strong>JuniorSpark — Online English Classes for Kids</strong></p>
                 <p>Building confident English speakers across India 🇮🇳</p>
                 <p style="margin-top: 15px; font-size: 12px;">This is an automated confirmation email. Please do not reply directly to this message.</p>
               </div>
@@ -160,15 +160,23 @@ export async function POST(request: Request) {
           </div>
         </body>
       </html>
-    `; */
+    `;
 
-    // Send Admin Email
-    await transporter.sendMail({
-      from: `"Demo Bookings" <${process.env.GMAIL_USER}>`,
-      to: process.env.ADMIN_EMAIL || 'juniorspark2026@gmail.com',
-      subject: `Enquiry: New Demo Class Booking - ${childName}`,
-      html: adminEmailHtml,
-    });
+    // Send Admin + Parent emails simultaneously
+    await Promise.all([
+      transporter.sendMail({
+        from: `"Demo Bookings" <${process.env.GMAIL_USER}>`,
+        to: process.env.ADMIN_EMAIL || 'juniorspark2026@gmail.com',
+        subject: `Enquiry: New Demo Class Booking - ${childName}`,
+        html: adminEmailHtml,
+      }),
+      transporter.sendMail({
+        from: `"JuniorSpark" <${process.env.GMAIL_USER}>`,
+        to: email,
+        subject: `✅ Demo Class Confirmed for ${childName} — ${formattedDate} at ${time} IST`,
+        html: parentEmailHtml,
+      }),
+    ]);
 
     // Send WhatsApp notification via CallMeBot
     const adminPhone  = process.env.WHATSAPP_ADMIN_PHONE;
