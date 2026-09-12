@@ -311,7 +311,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="#curriculum"
-                  className="flex w-full sm:w-auto cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-white border-2 border-slate-300 text-slate-700 text-lg font-bold hover:bg-slate-50 hover:border-primary hover:text-primary transition-all"
+                  className="flex w-full sm:w-auto cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-slate-100 border-2 border-slate-300 text-slate-800 text-lg font-bold hover:bg-slate-200 hover:border-slate-400 transition-all"
                 >
                   View Syllabus
                 </Link>
