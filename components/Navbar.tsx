@@ -24,9 +24,9 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="JuniorSpark Logo"
-            width={200}
-            height={200}
-            className="w-40 h-auto object-contain -my-4"
+            width={56}
+            height={56}
+            className="h-14 w-auto object-contain"
             priority
           />
         </Link>
