@@ -43,7 +43,7 @@ export default function TermsPage() {
                 user agrees to be bound by those terms. We shall not be liable for any unauthorized use, fraud, payment refunds, lost amount, etc., in the 
                 transaction. These Terms shall also govern any free trials provided on the Platform.
               </p>
-               <p><b>Refund:</b> We offer a 100% refund, no questions asked. It is highly unlikely (data speaks for us), but if you are unhappy with the progress, you can ask for 100% refund within 7 days of payment.</p>
+               <p><b>Refund:</b> We offer a 100% refund, no questions asked. It is highly unlikely (data speaks for us), but if you are unhappy with the progress, you can ask for 100% refund within 2 days of payment.</p>
               <p>Note: Enrollment at a discount of 20% or more is not eligible for return or refund. </p>
               <p>Your payment confirmation constitutes agreement to these terms.</p>
             </section>
