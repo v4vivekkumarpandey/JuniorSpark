@@ -3,6 +3,8 @@ import { Lexend } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -107,7 +109,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       <body className="font-display antialiased" suppressHydrationWarning>
+        <Navbar />
         {children}
+        <Footer />
         <WhatsAppButton />
 
         <noscript>

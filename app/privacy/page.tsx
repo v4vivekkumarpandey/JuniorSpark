@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -12,8 +10,6 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-background-light">
-      <Navbar />
-      
       <main className="max-w-4xl mx-auto w-full px-6 py-20">
         <div className="bg-white p-10 md:p-16 rounded-[2.5rem] shadow-xl border border-slate-100">
           <h1 className="text-4xl font-black text-slate-900 mb-10">Privacy Policy</h1>
@@ -104,8 +100,6 @@ export default function PrivacyPage() {
           </div>
         </div>
       </main>
-      {/* Footer end */}
-      <Footer />
     </div>
   );
 }

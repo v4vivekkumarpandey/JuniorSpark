@@ -23,8 +23,6 @@ import {
   Check,
   X
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = React.useState('beginner');
@@ -278,8 +276,6 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
-
       <main>
         {/* Hero Section */}
         <section className="px-6 md:px-12 lg:px-20 py-12 md:py-16 bg-gradient-to-br from-primary/5 via-transparent to-secondary/10 overflow-hidden">
@@ -710,8 +706,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-
-      <Footer />
 
       {/* Video Modal */}
       <AnimatePresence>

@@ -22,8 +22,6 @@ import {
   Sparkles,
   User,
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { motion } from 'motion/react';
 
 function ThankYouContent() {
@@ -47,7 +45,6 @@ function ThankYouContent() {
 
   return (
     <div className="min-h-screen bg-background-light">
-      <Navbar />
       <main className="max-w-4xl mx-auto w-full px-6 py-20">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -177,7 +174,6 @@ function ThankYouContent() {
           src="https://www.facebook.com/tr?id=1495466888888244&ev=Lead&noscript=1"
         />
       </noscript>
-      <Footer />
     </div>
   );
 }

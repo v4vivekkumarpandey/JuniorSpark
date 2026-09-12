@@ -14,6 +14,7 @@ export default function Navbar() {
     { name: 'How it works', href: '/#how-it-works' },
     { name: 'Curriculum', href: '/#curriculum' },
     { name: 'Pricing', href: '/#pricing' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
   ];
 

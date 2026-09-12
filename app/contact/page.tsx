@@ -12,8 +12,6 @@ import {
   Send,
   CheckCircle2,
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { motion, AnimatePresence } from 'motion/react';
 
 const contactSchema = z.object({
@@ -60,8 +58,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background-light">
-      <Navbar />
-
       <main className="max-w-7xl mx-auto w-full px-6 md:px-20 py-20">
         <div className="text-center mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">Get in Touch</h1>
@@ -205,7 +201,6 @@ export default function ContactPage() {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 }
