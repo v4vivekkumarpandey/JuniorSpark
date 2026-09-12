@@ -2,9 +2,14 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Script from 'next/script'
 
-import { 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+import {
   CheckCircle2, 
   ArrowLeft, 
   Calendar, 
@@ -18,24 +23,15 @@ import Footer from '@/components/Footer';
 import { motion } from 'motion/react';
 
 export default function ThankYouPage() {
+  // Lead event — fires once on mount after booking is confirmed
+  React.useEffect(() => {
+    window.fbq?.('track', 'Lead');
+    window.gtag?.('event', 'generate_lead', { currency: 'INR', value: 0 });
+  }, []);
+
   return (
     <div className="min-h-screen bg-background-light">
       <Navbar />
-      {/* Meta Pixel - Thank you */}
-      <Script id="fb-pixel-lead" strategy="afterInteractive">
-        {`
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '1495466888888244');
-          fbq('track', 'Lead');
-        `}
-      </Script>
       <main className="max-w-4xl mx-auto w-full px-6 py-20">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}

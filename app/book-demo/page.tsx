@@ -33,12 +33,25 @@ const bookingSchema = z.object({
 
 type BookingForm = z.infer<typeof bookingSchema>;
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 export default function BookDemoPage() {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = React.useState<Date>(addDays(new Date(), 1));
   const [showCalendar, setShowCalendar] = React.useState(false);
   const [submitError, setSubmitError] = React.useState<string>('');
   const [dateError, setDateError] = React.useState<string>('');
+
+  // ViewContent — fires once when the booking page loads
+  React.useEffect(() => {
+    window.fbq?.('track', 'ViewContent', { content_name: 'Book Demo Page' });
+    window.gtag?.('event', 'page_view', { page_title: 'Book Demo' });
+  }, []);
 
   const tomorrow = addDays(new Date(), 1);
   const nextAvailableDates = React.useMemo(() => {
@@ -76,6 +89,10 @@ export default function BookDemoPage() {
   const onSubmit = async (data: BookingForm) => {
     try {
       setSubmitError('');
+
+      // InitiateCheckout — fires when user submits the form
+      window.fbq?.('track', 'InitiateCheckout');
+      window.gtag?.('event', 'begin_checkout');
 
       // Send booking data to API route
       const response = await fetch('/api/send-booking-email', {
