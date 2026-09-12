@@ -1,16 +1,20 @@
 import Link from 'next/link';
-import { School, Mail, Phone, Youtube, Instagram, Facebook } from 'lucide-react';
+import Image from 'next/image';
+import { Mail, Youtube, Instagram, Facebook } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="bg-white px-6 md:px-12 lg:px-20 pt-20 pb-10 border-t border-slate-100">
       <div className="max-w-[1024px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         <div className="flex flex-col gap-6">
-          <div className="flex items-center gap-3">
-            <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
-              <School size={20} />
-            </div>
-            <h2 className="text-slate-900 text-lg font-extrabold">Junior Spark</h2>
+          <div>
+            <Image
+              src="/logo.jpeg"
+              alt="JuniorSpark Logo"
+              width={140}
+              height={70}
+              className="h-16 w-auto object-contain mix-blend-multiply"
+            />
           </div>
           <p className="text-slate-500 font-medium text-sm leading-relaxed">
             Making quality English education accessible and affordable for every child in India.

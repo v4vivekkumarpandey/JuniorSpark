@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { School, Menu, X } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function Navbar() {
@@ -19,11 +20,15 @@ export default function Navbar() {
   return (
     <header className="whitespace-nowrap border-b border-solid border-slate-200 px-6 md:px-12 lg:px-20 py-4 bg-white/80 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-[1024px] mx-auto flex items-center justify-between w-full">
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="size-10 bg-primary rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-            <School size={24} />
-          </div>
-          <h2 className="text-slate-900 text-xl font-extrabold leading-tight tracking-tight">Junior Spark</h2>
+        <Link href="/" className="flex items-center group">
+          <Image
+            src="/logo.jpeg"
+            alt="JuniorSpark Logo"
+            width={120}
+            height={60}
+            className="h-14 w-auto object-contain mix-blend-multiply"
+            priority
+          />
         </Link>
 
         <div className="hidden md:flex flex-1 justify-end gap-10 items-center">
