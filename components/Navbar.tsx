@@ -44,7 +44,7 @@ export default function Navbar() {
             ))}
           </nav>
           <Link
-            href="/book-demo"
+            href="/demo"
             className="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-11 px-5 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform"
           >
             Book Demo
@@ -74,7 +74,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/book-demo"
+                href="/demo"
                 onClick={() => setIsOpen(false)}
                 className="w-full bg-primary text-white text-center py-4 rounded-xl font-bold"
               >

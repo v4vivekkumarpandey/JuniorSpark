@@ -304,7 +304,7 @@ export default function HomePage() {
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="/book-demo"
+                  href="/demo"
                   className="flex flex-1 md:flex-none min-w-[240px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:bg-primary/90 transition-all"
                 >
                   Book Demo Class
@@ -580,7 +580,7 @@ export default function HomePage() {
                       ))}
                     </ul>
                     <Link
-                      href="/book-demo"
+                      href="/demo"
                       className="w-full h-14 rounded-2xl bg-primary text-white font-black text-lg shadow-xl shadow-primary/25 hover:scale-105 transition-transform flex items-center justify-center"
                     >
                       Book Demo
@@ -700,7 +700,7 @@ export default function HomePage() {
                   <MessageCircle size={18} /> WhatsApp
                 </a>
                 <Link
-                  href="/book-demo"
+                  href="/demo"
                   className="h-12 px-6 rounded-xl bg-white text-primary font-bold text-base shadow-lg hover:bg-slate-50 hover:scale-105 transition-all flex items-center justify-center shrink-0"
                 >
                   Book Demo
