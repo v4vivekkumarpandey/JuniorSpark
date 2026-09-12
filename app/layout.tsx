@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Lexend } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -107,10 +108,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-display antialiased" suppressHydrationWarning>
         {children}
+        <WhatsAppButton />
+
         <noscript>
-          <img 
-            height="1" 
-            width="1" 
+          <img
+            height="1"
+            width="1"
             style={{ display: 'none' }}
             src="https://www.facebook.com/tr?id=1495466888888244&ev=PageView&noscript=1"
           />
