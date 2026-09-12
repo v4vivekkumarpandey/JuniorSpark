@@ -541,7 +541,7 @@ export default function HomePage() {
                 <div className="space-y-6">
                   {[
                     { title: 'Small Batch Size', desc: 'Every child gets individual attention. No more getting lost in large virtual classrooms.', icon: <Users className="text-primary" /> },
-                    { title: 'Affordable Pricing', desc: 'High-quality education that doesn\'t burn a hole in your pocket. Plans start at just ₹90/class.', icon: <Sparkles className="text-green-600" /> },
+                    { title: 'Affordable Pricing', desc: 'High-quality education that doesn\'t burn a hole in your pocket. Flexible plans designed for every family.', icon: <Sparkles className="text-green-600" /> },
                     { title: 'Activity-Based Learning', desc: 'English through storytelling, role-plays, and fun interactive games.', icon: <Map className="text-primary" /> },
                     { title: 'Flexible Batch Timings', desc: 'Choose batches after school or on weekends. We fit into your child\'s busy routine perfectly.', icon: <Video className="text-secondary-600" /> }
                   ].map((f, i) => (
@@ -570,7 +570,7 @@ export default function HomePage() {
                       <p className="text-slate-400 line-through text-lg">₹9,999</p>
                       <p className="text-primary text-3xl font-black mt-1">₹4,800/Quarter</p>
                       <p className="text-slate-500 font-bold mt-2">1800/Month</p>
-                      <p className="text-slate-500 font-bold mt-2">5 Live Classes Weekly (₹90/class)</p>
+                      <p className="text-slate-500 font-bold mt-2">5 Live Classes Weekly</p>
                     </div> */}
                     <ul className="text-left space-y-4 my-4">
                       {['Small Batch Sizes', 'Interactive Learning', 'Personalized progress reports', 'Certification of completion'].map((item, i) => (
