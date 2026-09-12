@@ -109,8 +109,15 @@ export default function BookDemoPage() {
         throw new Error(result.error || 'Failed to send booking confirmation');
       }
 
-      // Success - redirect to thank you page
-      router.push('/thank-you');
+      // Success - redirect to thank you page with booking details
+      const params = new URLSearchParams({
+        name: data.childName,
+        parent: data.parentName,
+        date: data.date,
+        time: data.time,
+        age: data.ageGroup,
+      });
+      router.push(`/thank-you?${params.toString()}`);
 
     } catch (error) {
       console.error('Error submitting booking:', error);
