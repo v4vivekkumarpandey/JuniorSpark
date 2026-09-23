@@ -21,8 +21,10 @@ import {
   GraduationCap,
   Sparkles,
   Check,
-  X
+  X,
+  Clock,
 } from 'lucide-react';
+import { BLOG_POSTS, formatBlogDate } from '@/lib/blog-posts';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = React.useState('beginner');
@@ -193,7 +195,7 @@ export default function HomePage() {
       name: 'Olivia Gomez',
       location: 'Kochi, Kerala',
       text: 'value for money. My little Agitha has improved a lot in last 2 months. Highly recommend!',
-      img: 'https://picsum.photos/seed/parent3/100/100',
+      img: 'https://picsum.photos/seed/parent4/100/100',
       video: true
     }
   ];
@@ -242,7 +244,7 @@ export default function HomePage() {
         aggregateRating: {
           '@type': 'AggregateRating',
           ratingValue: '4.9',
-          reviewCount: '2800',
+          reviewCount: '4000',
           bestRating: '5',
         },
       },
@@ -271,6 +273,17 @@ export default function HomePage() {
           name: f.q,
           acceptedAnswer: { '@type': 'Answer', text: f.a },
         })),
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.juniorspark.in/#website',
+        url: 'https://www.juniorspark.in',
+        name: 'JuniorSpark',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: { '@type': 'EntryPoint', urlTemplate: 'https://www.juniorspark.in/blog?q={search_term_string}' },
+          'query-input': 'required name=search_term_string',
+        },
       },
     ],
   };
@@ -681,6 +694,48 @@ export default function HomePage() {
                   <p className="mt-4 text-slate-600 leading-relaxed">{faq.a}</p>
                 </details>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* From the Blog */}
+        <section className="px-6 md:px-12 lg:px-20 py-16 bg-white">
+          <div className="max-w-[1024px] mx-auto">
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-3">
+                  <BookOpen size={13} /> From the Blog
+                </div>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900">Tips for Parents</h2>
+              </div>
+              <Link href="/blog" className="hidden sm:inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all">
+                All articles <ArrowRight size={15} />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3).map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col"
+                >
+                  <h3 className="font-bold text-slate-900 group-hover:text-primary transition-colors mb-2 flex-1 leading-snug">
+                    {post.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100">
+                    <span className="flex items-center gap-1 text-xs text-slate-400">
+                      <Clock size={11} />{post.readTime} min read
+                    </span>
+                    <span className="text-xs text-slate-400">{formatBlogDate(post.date)}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-6 text-center sm:hidden">
+              <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold text-sm">
+                All articles <ArrowRight size={15} />
+              </Link>
             </div>
           </div>
         </section>

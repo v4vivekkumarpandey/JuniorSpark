@@ -16,6 +16,13 @@ export const metadata: Metadata = {
       "Expert tips and guides to help Indian parents support their child's English speaking journey.",
     url: 'https://www.juniorspark.in/blog',
     type: 'website',
+    images: [{ url: 'https://www.juniorspark.in/opengraph-image', width: 1200, height: 630, alt: 'JuniorSpark Blog' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'English Learning Blog for Parents | JuniorSpark',
+    description: "Expert tips and guides to help Indian parents support their child's English speaking journey.",
+    images: ['https://www.juniorspark.in/opengraph-image'],
   },
 };
 
@@ -89,11 +96,12 @@ export default function BlogPage() {
           >
             <div className="p-8 md:p-10">
               <div className="flex items-center gap-3 mb-4">
-                <span
-                  className={`text-xs font-semibold px-3 py-1 rounded-full ${CATEGORY_COLORS[featured.category] ?? 'bg-gray-100 text-gray-600'}`}
+                <Link
+                  href={`/blog/category/${encodeURIComponent(featured.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and'))}`}
+                  className={`text-xs font-semibold px-3 py-1 rounded-full hover:opacity-80 transition-opacity ${CATEGORY_COLORS[featured.category] ?? 'bg-gray-100 text-gray-600'}`}
                 >
                   {featured.category}
-                </span>
+                </Link>
                 <span className="flex items-center gap-1 text-xs text-gray-400">
                   <Clock size={12} />
                   {featured.readTime} min read
@@ -123,11 +131,12 @@ export default function BlogPage() {
               className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col"
             >
               <div className="flex items-center gap-2 mb-3">
-                <span
-                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${CATEGORY_COLORS[post.category] ?? 'bg-gray-100 text-gray-600'}`}
+                <Link
+                  href={`/blog/category/${encodeURIComponent(post.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and'))}`}
+                  className={`text-xs font-semibold px-2.5 py-1 rounded-full hover:opacity-80 transition-opacity ${CATEGORY_COLORS[post.category] ?? 'bg-gray-100 text-gray-600'}`}
                 >
                   {post.category}
-                </span>
+                </Link>
               </div>
               <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors mb-2 flex-1">
                 {post.title}

@@ -40,6 +40,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://www.juniorspark.in',
+    languages: {
+      'en-IN': 'https://www.juniorspark.in',
+      'x-default': 'https://www.juniorspark.in',
+    },
   },
   openGraph: {
     type: 'website',

@@ -1,6 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/lib/blog-posts';
 
+function categoryToSlug(category: string): string {
+  return encodeURIComponent(category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and'));
+}
+
 const SITE_URL = 'https://www.juniorspark.in';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -13,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE_URL}/demo`,
-      lastModified: new Date(),
+      lastModified: new Date('2026-09-01'),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
@@ -31,27 +35,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${SITE_URL}/about`,
-      lastModified: new Date(),
+      lastModified: new Date('2026-09-23'),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${SITE_URL}/contact`,
-      lastModified: new Date(),
+      lastModified: new Date('2026-08-01'),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    {
-      url: `${SITE_URL}/privacy`,
+    ...[...new Set(BLOG_POSTS.map((p) => p.category))].map((category) => ({
+      url: `${SITE_URL}/blog/category/${categoryToSlug(category)}`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${SITE_URL}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    })),
   ];
 }
