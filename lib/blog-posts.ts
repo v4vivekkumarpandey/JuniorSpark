@@ -1112,6 +1112,15 @@ export function getBlogPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((post) => post.slug === slug);
 }
 
+export function getRelatedPosts(currentSlug: string, count = 3): BlogPost[] {
+  const current = getBlogPost(currentSlug);
+  const others = BLOG_POSTS.filter((p) => p.slug !== currentSlug);
+  // same category first, then fill with others
+  const sameCategory = others.filter((p) => p.category === current?.category);
+  const different = others.filter((p) => p.category !== current?.category);
+  return [...sameCategory, ...different].slice(0, count);
+}
+
 export function formatBlogDate(dateStr: string): string {
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });

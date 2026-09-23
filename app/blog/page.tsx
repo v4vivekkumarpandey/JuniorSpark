@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { BLOG_POSTS, formatBlogDate } from '@/lib/blog-posts';
 import { Clock, ArrowRight, BookOpen } from 'lucide-react';
 
+const SITE_URL = 'https://www.juniorspark.in';
+
 export const metadata: Metadata = {
   title: 'English Learning Blog for Parents | JuniorSpark',
   description:
@@ -24,6 +26,26 @@ const CATEGORY_COLORS: Record<string, string> = {
   'Learning Guide': 'bg-green-50 text-green-700',
 };
 
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'JuniorSpark Blog',
+  description: "Expert tips and guides to help Indian parents support their child's English learning journey.",
+  url: `${SITE_URL}/blog`,
+  publisher: {
+    '@type': 'Organization',
+    name: 'JuniorSpark',
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
+  },
+  blogPost: BLOG_POSTS.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.title,
+    url: `${SITE_URL}/blog/${p.slug}`,
+    datePublished: `${p.date}T00:00:00+05:30`,
+    description: p.excerpt,
+  })),
+};
+
 export default function BlogPage() {
   const sorted = [...BLOG_POSTS].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -31,6 +53,11 @@ export default function BlogPage() {
   const [featured, ...rest] = sorted;
 
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+    />
     <main className="min-h-screen bg-[#fefeff]">
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary/5 to-secondary/10 py-16 px-4">
@@ -137,5 +164,6 @@ export default function BlogPage() {
         </div>
       </div>
     </main>
+    </>
   );
 }
