@@ -105,9 +105,13 @@ export default async function BlogPostPage({ params }: Props) {
     datePublished: `${post.date}T00:00:00+05:30`,
     dateModified: `${post.date}T00:00:00+05:30`,
     author: {
-      '@type': 'Person',
-      name: 'JuniorSpark Team',
+      '@type': 'Organization',
+      name: 'JuniorSpark',
       url: `${SITE_URL}/about`,
+    },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.article-excerpt'],
     },
     publisher: {
       '@type': 'Organization',
@@ -175,15 +179,16 @@ export default async function BlogPostPage({ params }: Props) {
           </Link>
 
           <header className="mb-10">
-            <div
-              className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 ${CATEGORY_COLORS[post.category] ?? 'bg-gray-100 text-gray-600'}`}
+            <Link
+              href={`/blog/category/${encodeURIComponent(post.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and'))}`}
+              className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 hover:opacity-80 transition-opacity ${CATEGORY_COLORS[post.category] ?? 'bg-gray-100 text-gray-600'}`}
             >
               {post.category}
-            </div>
+            </Link>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-snug mb-4">
               {post.title}
             </h1>
-            <p className="text-lg text-gray-500 leading-relaxed mb-6">{post.excerpt}</p>
+            <p className="article-excerpt text-lg text-gray-500 leading-relaxed mb-6">{post.excerpt}</p>
             <div className="flex items-center gap-4 text-sm text-gray-400 border-t border-b border-gray-100 py-4">
               <Link href="/about" className="font-medium text-gray-600 hover:text-primary transition-colors">
                 JuniorSpark Team

@@ -87,9 +87,9 @@ export default function BlogPage() {
       <div className="max-w-5xl mx-auto px-4 py-14">
         {/* Featured post */}
         <div className="mb-14">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-6">
+          <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-6">
             Latest Article
-          </h2>
+          </p>
           <Link
             href={`/blog/${featured.slug}`}
             className="group block bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden"
@@ -120,9 +120,9 @@ export default function BlogPage() {
         </div>
 
         {/* Rest of posts */}
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-6">
+        <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-6">
           More Articles
-        </h2>
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
           {rest.map((post) => (
             <Link

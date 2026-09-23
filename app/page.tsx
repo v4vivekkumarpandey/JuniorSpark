@@ -30,6 +30,9 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = React.useState('beginner');
   const [openFaqIndex, setOpenFaqIndex] = React.useState<number | null>(null);
   const [isVideoOpen, setIsVideoOpen] = React.useState(false);
+  const [activeVideoIndex, setActiveVideoIndex] = React.useState<number | null>(null);
+
+  const getYouTubeId = (url: string) => url.split('/embed/')[1]?.split('?')[0] ?? '';
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const testimonialScrollRef = React.useRef<HTMLDivElement>(null);
 
@@ -247,6 +250,12 @@ export default function HomePage() {
           reviewCount: '4000',
           bestRating: '5',
         },
+        review: [
+          { '@type': 'Review', author: { '@type': 'Person', name: 'Vandana Sharma' }, reviewBody: "My daughter Riya was very shy. After 3 months at JuniorSpark, she won her school's debate competition!", reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' } },
+          { '@type': 'Review', author: { '@type': 'Person', name: 'Ajay Deshmukh' }, reviewBody: "The small batch size is the best part. Aarav gets to speak for at least 15 minutes every class. Couldn't find such individual attention anywhere else.", reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' } },
+          { '@type': 'Review', author: { '@type': 'Person', name: 'Ahlam Mukhtar' }, reviewBody: 'The teachers are patient and very encouraging. They understand that children in smaller cities need more practice. Highly recommend!', reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' } },
+          { '@type': 'Review', author: { '@type': 'Person', name: 'Olivia Gomez' }, reviewBody: 'Value for money. My little Agitha has improved a lot in 2 months. Highly recommend!', reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' } },
+        ],
       },
       {
         '@type': 'Course',
@@ -254,9 +263,9 @@ export default function HomePage() {
         description: 'Live online Spoken English classes for children aged 5–15. Covering phonics, storytelling, grammar, public speaking, and debate.',
         provider: { '@id': 'https://www.juniorspark.in/#organization' },
         hasCourseInstance: [
-          { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: 'PT1H', name: 'Beginner — Ages 5–7' },
-          { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: 'PT1H', name: 'Intermediate — Ages 8–11' },
-          { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: 'PT1H', name: 'Advanced — Ages 12–15' },
+          { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: 'PT45M', name: 'Beginner — Ages 5–7' },
+          { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: 'PT45M', name: 'Intermediate — Ages 8–11' },
+          { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: 'PT45M', name: 'Advanced — Ages 12–15' },
         ],
         offers: {
           '@type': 'Offer',
@@ -279,11 +288,6 @@ export default function HomePage() {
         '@id': 'https://www.juniorspark.in/#website',
         url: 'https://www.juniorspark.in',
         name: 'JuniorSpark',
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: { '@type': 'EntryPoint', urlTemplate: 'https://www.juniorspark.in/blog?q={search_term_string}' },
-          'query-input': 'required name=search_term_string',
-        },
       },
     ],
   };
@@ -406,12 +410,14 @@ export default function HomePage() {
             <div className="relative group">
               <button
                 onClick={() => scroll('left')}
+                aria-label="Previous videos"
                 className="hidden md:flex absolute -left-5 lg:-left-12 top-[calc(50%-16px)] -translate-y-1/2 z-10 size-12 rounded-full border border-slate-200 bg-white items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-all hover:scale-105 shadow-md opacity-0 group-hover:opacity-100"
               >
                 <ChevronLeft size={24} />
               </button>
               <button
                 onClick={() => scroll('right')}
+                aria-label="Next videos"
                 className="hidden md:flex absolute -right-5 lg:-right-12 top-[calc(50%-16px)] -translate-y-1/2 z-10 size-12 rounded-full border border-slate-200 bg-white items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-all hover:scale-105 shadow-md opacity-0 group-hover:opacity-100"
               >
                 <ChevronRight size={24} />
@@ -422,17 +428,36 @@ export default function HomePage() {
                 className="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] px-1"
               >
                 {shiningStars.map((video, i) => (
-                  <div key={i} className="min-w-[70vw] sm:min-w-[calc(50%-0.5rem)] md:min-w-[calc(33.333%-1rem)] lg:min-w-[calc(25%-1.125rem)] aspect-[9/16] rounded-2xl overflow-hidden bg-slate-100 shrink-0 snap-center shadow-lg border border-slate-200 relative group">
-                    <iframe
-                      width="100%"
-                      height="100%"
-                      src={video}
-                      title={`Shining Star ${i + 1}`}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="absolute inset-0 w-full h-full"
-                    ></iframe>
+                  <div key={i} className="min-w-[70vw] sm:min-w-[calc(50%-0.5rem)] md:min-w-[calc(33.333%-1rem)] lg:min-w-[calc(25%-1.125rem)] aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 shrink-0 snap-center shadow-lg border border-slate-200 relative">
+                    {activeVideoIndex === i ? (
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src={`${video}?autoplay=1`}
+                        title={`Shining Star ${i + 1}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="absolute inset-0 w-full h-full"
+                      />
+                    ) : (
+                      <button
+                        onClick={() => setActiveVideoIndex(i)}
+                        aria-label={`Play student story ${i + 1}`}
+                        className="absolute inset-0 w-full h-full flex items-center justify-center group/play"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`https://img.youtube.com/vi/${getYouTubeId(video)}/hqdefault.jpg`}
+                          alt={`Student success story ${i + 1}`}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="relative z-10 size-16 rounded-full bg-primary/90 flex items-center justify-center shadow-xl group-hover/play:scale-110 transition-transform">
+                          <PlayCircle size={32} className="text-white" />
+                        </div>
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -623,12 +648,14 @@ export default function HomePage() {
             <div className="relative group">
               <button
                 onClick={() => scrollTestimonials('left')}
+                aria-label="Previous testimonials"
                 className="hidden md:flex absolute -left-5 lg:-left-12 top-[calc(50%-16px)] -translate-y-1/2 z-10 size-12 rounded-full border border-slate-200 bg-white items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-all hover:scale-105 shadow-md opacity-0 group-hover:opacity-100"
               >
                 <ChevronLeft size={24} />
               </button>
               <button
                 onClick={() => scrollTestimonials('right')}
+                aria-label="Next testimonials"
                 className="hidden md:flex absolute -right-5 lg:-right-12 top-[calc(50%-16px)] -translate-y-1/2 z-10 size-12 rounded-full border border-slate-200 bg-white items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-all hover:scale-105 shadow-md opacity-0 group-hover:opacity-100"
               >
                 <ChevronRight size={24} />
@@ -688,7 +715,7 @@ export default function HomePage() {
                     }}
                     className="flex items-center justify-between cursor-pointer"
                   >
-                    <h4 className="text-lg font-bold">{faq.q}</h4>
+                    <h3 className="text-lg font-bold">{faq.q}</h3>
                     <ChevronDown className="text-primary transition-transform group-open:rotate-180" />
                   </summary>
                   <p className="mt-4 text-slate-600 leading-relaxed">{faq.a}</p>

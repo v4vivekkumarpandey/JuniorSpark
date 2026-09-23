@@ -139,7 +139,7 @@ export default async function Image() {
             width: '100%', textAlign: 'center', display: 'flex',
             justifyContent: 'center',
           }}>
-            juniorsparkweb.vercel.app
+            www.juniorspark.in
           </div>
         </div>
 

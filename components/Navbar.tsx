@@ -15,6 +15,7 @@ export default function Navbar() {
     { name: 'Curriculum', href: '/#curriculum' },
     { name: 'Pricing', href: '/#pricing' },
     { name: 'Blog', href: '/blog' },
+    { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
 

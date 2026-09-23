@@ -20,9 +20,15 @@ export const metadata: Metadata = {
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'EducationalOrganization',
+  '@id': 'https://www.juniorspark.in/#organization',
   name: 'JuniorSpark',
   url: 'https://www.juniorspark.in',
-  logo: 'https://www.juniorspark.in/logo.png',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://www.juniorspark.in/logo.png',
+    width: 512,
+    height: 512,
+  },
   description:
     'Live online spoken English classes for kids aged 4–15. Small batches, expert teachers, proven results across 100+ cities in India.',
   foundingDate: '2023',
@@ -37,7 +43,7 @@ const orgSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.9',
-    reviewCount: '2800',
+    reviewCount: '4000',
     bestRating: '5',
   },
   sameAs: [

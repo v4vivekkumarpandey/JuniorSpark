@@ -708,7 +708,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'english-stories-for-kids-with-morals',
     title: '15 Short English Stories for Kids With Morals (And Why They Work)',
     excerpt:
-      "Stories are one of the most powerful tools for building English fluency in children. Here are 15 classic tales reframed as language-learning opportunities — with the moral, the vocabulary, and the lesson in each.",
+      '15 classic English stories for kids with morals — each reframed as a language-learning opportunity with vocabulary and speaking lessons.',
     date: '2026-09-03',
     category: 'Creative Writing',
     tags: ['english stories for kids', 'short stories morals', 'kids reading english', 'story writing'],
@@ -912,7 +912,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'debate-writing-for-class-11',
     title: 'Debate Writing for Class 11: Format, Tips, and Sample Topics (CBSE)',
     excerpt:
-      "Debate writing is one of the most marks-intensive skills in Class 11 English. This complete guide covers the CBSE format, what judges look for, sample topics, and how to build real debate skills beyond the exam.",
+      'Complete guide to CBSE debate writing for Class 11 — format, what judges look for, sample topics, and tips to score top marks in English.',
     date: '2026-08-25',
     category: 'Debate & Writing',
     tags: ['debate writing class 11', 'CBSE debate format', 'debate topics class 11', 'english debate writing'],
@@ -1015,7 +1015,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'story-writing-for-class-5',
     title: 'Story Writing for Class 5: A Complete Guide With Examples and Topics',
     excerpt:
-      "Story writing is one of the most creative and marks-rich sections of Class 5 English. This guide covers the format, tips, sample topics, and the habits that turn ordinary students into confident young writers.",
+      'Complete guide to Class 5 story writing — format, sample topics, practical tips, and the framework that turns ordinary students into confident young writers.',
     date: '2026-08-18',
     category: 'Creative Writing',
     tags: ['story writing class 5', 'creative writing kids', 'story writing tips', 'class 5 english'],

@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: SITE_URL,
-      lastModified: new Date(),
+      lastModified: new Date('2026-09-23'),
       changeFrequency: 'weekly',
       priority: 1,
     },
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE_URL}/blog`,
-      lastModified: new Date(),
+      lastModified: new Date(BLOG_POSTS.reduce((max, p) => p.date > max ? p.date : max, '2000-01-01')),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
@@ -45,11 +45,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    ...[...new Set(BLOG_POSTS.map((p) => p.category))].map((category) => ({
-      url: `${SITE_URL}/blog/category/${categoryToSlug(category)}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    })),
+    ...[...new Set(BLOG_POSTS.map((p) => p.category))].map((category) => {
+      const latestInCategory = BLOG_POSTS
+        .filter((p) => p.category === category)
+        .reduce((max, p) => (p.date > max ? p.date : max), '2000-01-01');
+      return {
+        url: `${SITE_URL}/blog/category/${categoryToSlug(category)}`,
+        lastModified: new Date(latestInCategory),
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      };
+    }),
   ];
 }

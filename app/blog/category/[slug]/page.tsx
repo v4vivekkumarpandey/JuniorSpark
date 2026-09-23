@@ -52,6 +52,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+  'Tips for Parents': 'Practical strategies for Indian parents to support English learning at home — small habits that build real speaking confidence in children.',
+  'Child Development': 'Research-backed insights into how children develop language skills, and what parents can do at each age to accelerate fluency.',
+  'Parents Guide': 'Step-by-step guides for parents navigating English education choices — from choosing classes to supporting practice at home.',
+  'Learning Guide': 'Age-wise English learning roadmaps for children aged 4–15, covering what to focus on and how to measure real progress.',
+  'Speaking Practice': 'Targeted speaking exercises, sentence lists, and conversation frameworks children can practise daily at home.',
+  'Public Speaking': 'Everything a child needs to speak confidently in front of any audience — from managing nerves to structuring a compelling opening.',
+  'Speech Writing': 'How to write speeches that sound natural, connect with audiences, and earn top marks in school competitions and assemblies.',
+  'Creative Writing': 'Creative writing frameworks, story formats, and guided exercises to help children express ideas with clarity and imagination.',
+  'Debate & Writing': 'CBSE debate writing formats, argument structure guides, and sample topics for Class 9–12 students preparing for exams.',
+};
+
 const CATEGORY_COLORS: Record<string, string> = {
   'Tips for Parents': 'bg-blue-50 text-blue-700',
   'Child Development': 'bg-purple-50 text-purple-700',
@@ -75,7 +87,25 @@ export default async function CategoryPage({ params }: Props) {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
+  const categoryUrl = `${SITE_URL}/blog/category/${slug}`;
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+      { '@type': 'ListItem', position: 3, name: category, item: categoryUrl },
+    ],
+  };
+
+  const description = CATEGORY_DESCRIPTIONS[category];
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <main className="min-h-screen bg-[#fefeff]">
       <section className="bg-gradient-to-br from-primary/5 to-secondary/10 py-14 px-4">
         <div className="max-w-4xl mx-auto">
@@ -86,10 +116,13 @@ export default async function CategoryPage({ params }: Props) {
             {category}
           </span>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            {category}
+            {category} — English Tips for Kids
           </h1>
-          <p className="text-gray-600 text-lg">
-            {posts.length} article{posts.length !== 1 ? 's' : ''} in this category
+          {description && (
+            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mb-3">{description}</p>
+          )}
+          <p className="text-gray-400 text-sm">
+            {posts.length} article{posts.length !== 1 ? 's' : ''}
           </p>
         </div>
       </section>
@@ -123,5 +156,6 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </div>
     </main>
+    </>
   );
 }
