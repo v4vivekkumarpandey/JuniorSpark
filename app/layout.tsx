@@ -73,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-IN" className={`${lexend.variable} scroll-smooth`}>
       <head>
+        <link rel="alternate" type="application/rss+xml" title="JuniorSpark Blog" href="/feed.xml" />
        {/* Meta Pixel Code */}
         <Script id="fb-pixel" strategy="afterInteractive">
           {`

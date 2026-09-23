@@ -2,7 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BLOG_POSTS, getBlogPost, getRelatedPosts, formatBlogDate } from '@/lib/blog-posts';
-import { Clock, ArrowLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { Clock, ArrowLeft, ChevronRight, ArrowRight, List } from 'lucide-react';
+
+function slugifyHeading(heading: string): string {
+  return heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
 
 const SITE_URL = 'https://www.juniorspark.in';
 const OG_IMAGE = `${SITE_URL}/opengraph-image`;
@@ -70,6 +74,27 @@ export default async function BlogPostPage({ params }: Props) {
 
   const related = getRelatedPosts(post.slug, 3);
   const postUrl = `${SITE_URL}/blog/${post.slug}`;
+  const headings = post.sections.filter((s) => s.heading);
+
+  const isHowTo =
+    post.slug.includes('how-to') ||
+    post.slug === 'tips-confident-public-speaker-kids' ||
+    post.slug === 'speech-writing-for-kids';
+
+  const howToSchema = isHowTo && headings.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: post.title,
+        description: post.excerpt,
+        step: headings.map((s, i) => ({
+          '@type': 'HowToStep',
+          position: i + 1,
+          name: s.heading,
+          text: s.paragraphs.join(' '),
+        })),
+      }
+    : null;
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -121,6 +146,12 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        />
+      )}
 
       <main className="min-h-screen bg-[#fefeff]">
         {/* Breadcrumb */}
@@ -167,12 +198,37 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </header>
 
+          {/* Table of Contents — shown for posts with 4+ headings */}
+          {headings.length >= 4 && (
+            <nav className="mb-10 p-5 bg-gray-50 border border-gray-200 rounded-2xl">
+              <div className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-3">
+                <List size={15} className="text-primary" />
+                In this article
+              </div>
+              <ol className="space-y-2">
+                {headings.map((s) => (
+                  <li key={s.heading}>
+                    <a
+                      href={`#${slugifyHeading(s.heading!)}`}
+                      className="text-sm text-primary hover:underline leading-snug"
+                    >
+                      {s.heading}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+
           {/* Article body */}
           <div className="space-y-8 text-gray-700 leading-relaxed">
             {post.sections.map((section, i) => (
               <section key={i}>
                 {section.heading && (
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 mt-10 mb-3">
+                  <h2
+                    id={slugifyHeading(section.heading)}
+                    className="text-xl md:text-2xl font-bold text-gray-900 mt-10 mb-3 scroll-mt-20"
+                  >
                     {section.heading}
                   </h2>
                 )}
