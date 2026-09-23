@@ -16,10 +16,10 @@ const SITE_URL = 'https://www.juniorspark.in';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Online Spoken English & Creative Writing Classes For Kids - Exclusively for Ages 4-15 | JuniorSpark',
+    default: 'Online Spoken English Classes for Kids | JuniorSpark',
     template: '%s | JuniorSpark',
   },
-  description: 'Live online Spoken English classes for kids aged 4–15. Small batches of max 6 kids, expert teachers, and real results. Book a FREE demo class today!',
+  description: 'Live online Spoken English classes for kids aged 4–15. Small batches of max 5 kids, expert teachers, and real results. Book a FREE demo class today!',
   keywords: [
     'spoken english classes for kids',
     'online english classes india',
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: SITE_URL,
     siteName: 'JuniorSpark',
-    title: 'Online Spoken English & Creative Writing Classes For Kids - Exclusively for Ages 4-15 | JuniorSpark',
-    description: 'Live online Spoken English classes for kids aged 4–15. Small batches of max 6 kids, expert teachers, and real results. Book a FREE demo class today!',
+    title: 'Online Spoken English Classes for Kids | JuniorSpark',
+    description: 'Live online Spoken English classes for kids aged 4–15. Small batches of max 5 kids, expert teachers, and real results. Book a FREE demo class today!',
     images: [
       {
         url: '/opengraph-image',
@@ -59,15 +59,15 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Online Spoken English & Creative Writing Classes For Kids - Exclusively for Ages 4-15 | JuniorSpark',
-    description: 'Live online Spoken English classes for kids aged 4–15. Small batches of max 6 kids, expert teachers, and real results. Book a FREE demo class today!',
-    images: ['/heroimage.jpeg'],
+    title: 'Online Spoken English Classes for Kids | JuniorSpark',
+    description: 'Live online Spoken English classes for kids aged 4–15. Small batches of max 5 kids, expert teachers, and real results. Book a FREE demo class today!',
+    images: ['/opengraph-image'],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${lexend.variable} scroll-smooth`}>
+    <html lang="en-IN" className={`${lexend.variable} scroll-smooth`}>
       <head>
        {/* Meta Pixel Code */}
         <Script id="fb-pixel" strategy="afterInteractive">

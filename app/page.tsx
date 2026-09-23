@@ -221,7 +221,12 @@ export default function HomePage() {
         '@id': 'https://www.juniorspark.in/#organization',
         name: 'JuniorSpark',
         url: 'https://www.juniorspark.in',
-        logo: 'https://www.juniorspark.in/heroimage.jpeg',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://www.juniorspark.in/logo.png',
+          width: 512,
+          height: 512,
+        },
         description: 'Live online Spoken English classes for kids aged 5–15 in India. Small batches, expert teachers.',
         sameAs: [
           'https://www.instagram.com/juniorspark.in/',

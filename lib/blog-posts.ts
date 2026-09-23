@@ -309,7 +309,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'daily-english-sentences-for-kids',
-    title: '150 Daily Use English Sentences Every Child Should Know',
+    title: '40+ Daily English Sentences Every Child Should Know',
     excerpt:
       'Fluency is built sentence by sentence. Here are the most useful everyday English phrases kids can start using right now — at home, at school, and with friends.',
     date: '2026-09-18',
